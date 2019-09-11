@@ -1,6 +1,8 @@
 package com.sturdy.sturdymem.service;
 
+import com.sturdy.sturdymem.dao.MyRepository;
 import com.sturdy.sturdymem.dao.SturdyDao;
+import com.sturdy.sturdymem.entity.MyResource;
 import com.sturdy.sturdymem.exception.ServiceException;
 import com.sturdy.sturdymem.util.SturdyHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +16,17 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.stream.Stream;
 
 @Service
 public class SturdyMemServiceImpl implements SturdyMemService {
 
+    @Autowired
+    private SturdyDao sturdyDao;
 
     @Autowired
-    SturdyDao sturdyDao;
+    private MyRepository myRepository;
 
     @Override
     public void init() {
@@ -32,10 +37,12 @@ public class SturdyMemServiceImpl implements SturdyMemService {
     public void saveToDictionary(MultipartFile file) {
 
         //parse the file
-        SturdyHelper.parseFile(file);
+        List<String> strings = SturdyHelper.parseFile(file);
 
+        myRepository.save(new MyResource("MyDictionary",strings));
 
-
+        List<MyResource> all = myRepository.findAll();
+        System.out.println("Debug$$$" + all);
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         try {
             if (file.isEmpty()) {
