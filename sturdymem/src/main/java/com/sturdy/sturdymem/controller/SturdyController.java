@@ -2,6 +2,8 @@ package com.sturdy.sturdymem.controller;
 
 
 import com.sturdy.sturdymem.service.SturdyMemService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/api/v1")
 @RestController
 public class SturdyController {
-
+    Logger logger = LoggerFactory.getLogger(SturdyController.class);
     @Autowired
     private SturdyMemService sturdyMemService;
 
@@ -22,7 +24,7 @@ public class SturdyController {
     @PostMapping("/uploadFile")
     public String uploadFile(@RequestParam("file")
                                      MultipartFile file) {
-        System.out.println("File Received"); //TODO - replace with logger
+        logger.debug("File Received");
         sturdyMemService.saveToDictionary(file);
         return "OK";
 
