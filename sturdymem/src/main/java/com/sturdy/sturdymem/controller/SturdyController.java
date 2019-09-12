@@ -2,6 +2,7 @@ package com.sturdy.sturdymem.controller;
 
 
 import com.sturdy.sturdymem.service.SturdyMemService;
+import org.apache.catalina.connector.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +19,14 @@ public class SturdyController {
     @GetMapping("/words")
     public boolean getUser(@RequestParam String targetString) {
         return sturdyMemService.findIfTargetWordExists(targetString);
-
     }
 
     @PostMapping("/uploadFile")
-    public String uploadFile(@RequestParam("file")
+    public int uploadFile(@RequestParam("file")
                                      MultipartFile file) {
-        logger.debug("File Received");
+        logger.info("File Received .file name {}", file.getOriginalFilename());
         sturdyMemService.saveToDictionary(file);
-        return "OK";
+        return Response.SC_CREATED;
 
     }
 

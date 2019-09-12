@@ -1,5 +1,8 @@
 package com.sturdy.sturdymem.util;
 
+import com.sturdy.sturdymem.exception.ServiceException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -9,39 +12,31 @@ import java.util.List;
 
 public class SturdyHelper {
 
-
+    static Logger logger = LoggerFactory.getLogger(SturdyHelper.class);
     public static List<String> parseFile(MultipartFile file){
 
-        int fileSize = (int) file.getSize();
-        String[] s = null;
-//        BufferedReader br = new BufferedReader();
-//        file.
+        long fileSize = file.getSize();
+        logger.debug("about to parse file of size {}", fileSize);
+        String[] listOfWords = null;
         //TODO - implement methods
         try {
             InputStream inputStream = file.getInputStream();
-//            BufferedReader buffer = new BufferedReader();
             StringBuilder sb = new StringBuilder();
-
-            byte[] buf = new byte[fileSize];
-
-
             int data = inputStream.read();
             while (data != -1) {
-                System.out.print((char) data);
-
                 data = inputStream.read();
                 sb.append((char) data);
-
-
             }
-
-            s = sb.toString().split(" ");
+            //split strings by space
+            listOfWords = sb.toString().split(" ");
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("File Parse Error", e);
+            throw new ServiceException("File Parse Error", e);
         }
 
-        return null != s ? Arrays.asList(s) : null;
+        //return list of words
+        return null != listOfWords ? Arrays.asList(listOfWords) : null;
 
     }
 }
