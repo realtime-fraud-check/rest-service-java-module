@@ -7,15 +7,19 @@ import com.sturdy.sturdymem.exception.ServiceException;
 import com.sturdy.sturdymem.util.SturdyHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.index.TextIndexDefinition;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.TextCriteria;
+import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -32,6 +36,9 @@ public class SturdyMemServiceImpl implements SturdyMemService {
     public void init() {
 
     }
+
+    @Autowired
+    private MongoTemplate mongoTemplate;
 
     @Override
     public void saveToDictionary(MultipartFile file) {
@@ -82,5 +89,25 @@ public class SturdyMemServiceImpl implements SturdyMemService {
     @Override
     public void deleteAll() {
 
+    }
+
+    @Override
+    public boolean findIfTargetWordExists(String targetWord) {
+
+        TextIndexDefinition textIndex = new TextIndexDefinition.TextIndexDefinitionBuilder()
+                .onField("values", 2F)
+                .build();
+        mongoTemplate.indexOps(MyResource.class).ensureIndex(textIndex);
+
+
+        TextCriteria criteria = TextCriteria.forDefaultLanguage()
+                .matching(targetWord);
+
+        Query query = TextQuery.queryText(criteria)
+                .sortByScore()
+                .with(new PageRequest(0, 5));
+
+        List<MyResource> found = mongoTemplate.find(query, MyResource.class);
+        return !found.isEmpty();
     }
 }

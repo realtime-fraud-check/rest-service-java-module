@@ -8,15 +8,17 @@ import java.util.stream.Stream;
 
 public interface SturdyMemService {
 
-    public  void init();
+    void init();
 
-    public  void saveToDictionary(MultipartFile file);
+    void saveToDictionary(MultipartFile file);
 
-    public  Stream<Path> loadAll();
+    Stream<Path> loadAll();
 
-    public  Path load(String filename);
+    Path load(String filename);
 
-    public  Resource loadAsResource(String filename);
+    Resource loadAsResource(String filename);
 
-    public  void deleteAll();
+    void deleteAll();
+
+    boolean findIfTargetWordExists(String targetWord);
 }
