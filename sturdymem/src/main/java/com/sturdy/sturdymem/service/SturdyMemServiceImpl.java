@@ -1,7 +1,6 @@
 package com.sturdy.sturdymem.service;
 
 import com.sturdy.sturdymem.dao.MyRepository;
-import com.sturdy.sturdymem.dao.SturdyDao;
 import com.sturdy.sturdymem.entity.MyResource;
 import com.sturdy.sturdymem.exception.ServiceException;
 import com.sturdy.sturdymem.util.SturdyHelper;
@@ -25,9 +24,6 @@ import java.util.stream.Stream;
 
 @Service
 public class SturdyMemServiceImpl implements SturdyMemService {
-
-    @Autowired
-    private SturdyDao sturdyDao;
 
     @Autowired
     private MyRepository myRepository;

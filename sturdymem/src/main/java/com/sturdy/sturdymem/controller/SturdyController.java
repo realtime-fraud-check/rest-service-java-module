@@ -15,7 +15,6 @@ public class SturdyController {
 
     @GetMapping("/words")
     public boolean getUser(@RequestParam String targetString) {
-
         return sturdyMemService.findIfTargetWordExists(targetString);
 
     }
