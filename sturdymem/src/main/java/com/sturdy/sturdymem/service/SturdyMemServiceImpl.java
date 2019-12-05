@@ -1,7 +1,9 @@
 package com.sturdy.sturdymem.service;
 
 import com.sturdy.sturdymem.dao.MyRepository;
+import com.sturdy.sturdymem.dao.MyTransactionRepository;
 import com.sturdy.sturdymem.entity.MyResource;
+import com.sturdy.sturdymem.entity.MyTransactionResource;
 import com.sturdy.sturdymem.util.SturdyHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,9 @@ public class SturdyMemServiceImpl implements SturdyMemService {
 
     @Autowired
     private MyRepository myRepository;
+
+    @Autowired
+    private MyTransactionRepository myTransactionRepository;
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -50,5 +55,23 @@ public class SturdyMemServiceImpl implements SturdyMemService {
         List<MyResource> searchResults = mongoTemplate.find(query, MyResource.class);
         logger.debug("searchResults retrieved {} ", searchResults);
         return null != searchResults && !searchResults.isEmpty();
+    }
+
+    @Override
+    public boolean saveMyTransaction(MyTransactionResource myTransactionResource) {
+        myTransactionRepository.save(myTransactionResource);
+
+        return true;
+    }
+
+    @Override
+    public MyTransactionResource fetchMyTransaction(String transId) {
+        return myTransactionRepository.findById(transId).orElse(null);
+    }
+
+    @Override
+    public boolean updateMyTransaction(String transId,MyTransactionResource myTransactionResource) {
+         myTransactionRepository.save(myTransactionResource);
+         return  true ; //todo change this to conditional
     }
 }
