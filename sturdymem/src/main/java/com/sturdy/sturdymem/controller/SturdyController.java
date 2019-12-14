@@ -24,33 +24,12 @@ public class SturdyController {
     private SturdyMemService sturdyMemService;
 
 
-    //TODO revisit the commented out codes.
-
-     /*
-
-    @GetMapping("/words")
-    public boolean getUser(@RequestParam String targetString) {
-        return sturdyMemService.findIfTargetWordExists(targetString);
-    }
-
-
-
-   @PostMapping("/uploadFile")
-    public ResponseEntity uploadFile(@RequestParam("file")
-                                     MultipartFile file) {
-        if(null == file) {
-            new ResponseEntity(HttpStatus.BAD_REQUEST);
-        }
-        logger.info("File Received .file name {} . file size {}", file.getOriginalFilename(),file.getSize());
-        sturdyMemService.saveToDictionary(file);
-        return new ResponseEntity(HttpStatus.CREATED);
-
-    }
+    //TODO revisit the commented out codes. @Sid-Dec14 - Also removed this commented part,except createTransaction() . Assuming the todo is done . @Vinod:pls confirm
 
     @PostMapping("/transactions/")
     public boolean createTransaction(MyTransactionResource myTransactionResource) {
         return sturdyMemService.saveMyTransaction(myTransactionResource);
-    }*/
+    }
 
 
     @PutMapping("/transactions/{transId}")

@@ -36,37 +36,13 @@ public class SturdyMemServiceImpl implements SturdyMemService {
 
     //TODO Revisit saveToDictionary
 
-/*    @Override
-    public void saveToDictionary(MultipartFile file) {
-        //parse the file
-        List<String> strings = SturdyHelper.parseFile(file);
-        myRepository.save(new MyResource("MyDictionary",strings));
-    }*/
-
 //TODO Will revisit findIfTargetWordExists(String targetWord) and saveMyTransaction(MyTransactionResource myTransactionResource later.
-
-    @Override
-    public boolean findIfTargetWordExists(String targetWord) {
-        return true;
-/*        TextIndexDefinition textIndex = new TextIndexDefinition.TextIndexDefinitionBuilder()
-                .onField("values", 2F)
-                .build();
-        mongoTemplate.indexOps(MyResource.class).ensureIndex(textIndex);
-
-        TextCriteria criteria = TextCriteria.forDefaultLanguage()
-                .matching(targetWord);
-
-        Query query = TextQuery.queryText(criteria);
-        logger.debug("About to search  for {}", targetWord);
-        List<MyResource> searchResults = mongoTemplate.find(query, MyResource.class);
-        logger.debug("searchResults retrieved {} ", searchResults);
-        return null != searchResults && !searchResults.isEmpty();*/
-    }
-
+// @Sid:Dec 14: this commented code is also removed . @Vinod - Pls revert, if any.
     @Override
     public boolean saveMyTransaction(MyTransactionResource myTransactionResource) {
-        myTransactionRepository.save(myTransactionResource);
-
+        MyTransactionResource myTransactionResource1 = myTransactionRepository.save(myTransactionResource);
+        
+//        System.out.println(myTransactionResource1.toString());
         return true;
     }
 
