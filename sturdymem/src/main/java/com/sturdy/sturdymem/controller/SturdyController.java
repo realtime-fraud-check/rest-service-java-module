@@ -4,6 +4,7 @@ package com.sturdy.sturdymem.controller;
 import com.sturdy.sturdymem.entity.MyTransactionResource;
 import com.sturdy.sturdymem.service.SturdyMemService;
 import org.apache.catalina.connector.Response;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +23,19 @@ public class SturdyController {
     @Autowired
     private SturdyMemService sturdyMemService;
 
+
+    //TODO revisit the commented out codes.
+
+     /*
+
     @GetMapping("/words")
     public boolean getUser(@RequestParam String targetString) {
         return sturdyMemService.findIfTargetWordExists(targetString);
     }
 
-    @PostMapping("/uploadFile")
+
+
+   @PostMapping("/uploadFile")
     public ResponseEntity uploadFile(@RequestParam("file")
                                      MultipartFile file) {
         if(null == file) {
@@ -42,7 +50,7 @@ public class SturdyController {
     @PostMapping("/transactions/")
     public boolean createTransaction(MyTransactionResource myTransactionResource) {
         return sturdyMemService.saveMyTransaction(myTransactionResource);
-    }
+    }*/
 
 
     @PutMapping("/transactions/{transId}")
@@ -52,7 +60,13 @@ public class SturdyController {
 
 
     @GetMapping("/transactions/{trans-id}")
-    public MyTransactionResource fetchTransaction(@PathParam("transId") String transId) {
-        return sturdyMemService.fetchMyTransaction(transId);
+    public MyTransactionResource fetchTransactionByTransId(@PathParam("transId") String transId) {
+        return sturdyMemService.fetchTransactionByTransId(transId);
+    }
+
+    @GetMapping("/transactions/{id}")
+    public MyTransactionResource fetchTransactionById(@PathParam("id") String id){
+        //Creating #ObjectId from provided string
+        return sturdyMemService.fetchTransactionById(new ObjectId(id));
     }
 }
