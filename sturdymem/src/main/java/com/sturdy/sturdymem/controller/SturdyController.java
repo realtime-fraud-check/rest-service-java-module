@@ -27,7 +27,7 @@ public class SturdyController {
     //TODO revisit the commented out codes. @Sid-Dec14 - Also removed this commented part,except createTransaction() . Assuming the todo is done . @Vinod:pls confirm
 
     @PostMapping("/transactions/")
-    public boolean createTransaction(MyTransactionResource myTransactionResource) {
+    public boolean createTransaction(@RequestBody MyTransactionResource myTransactionResource) {
         return sturdyMemService.saveMyTransaction(myTransactionResource);
     }
 
