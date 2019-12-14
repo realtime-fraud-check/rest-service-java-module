@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/realtime_fraud_analytics.iml" filepath="$PROJECT_DIR$/.idea/realtime_fraud_analytics.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sturdymem/sturdymem.iml" filepath="$PROJECT_DIR$/sturdymem/sturdymem.iml" />
+    </modules>
+  </component>
+</project>
