@@ -32,7 +32,6 @@ public class SturdyMemServiceImpl implements SturdyMemService {
     @Override
     public boolean saveMyTransaction(MyTransactionResource myTransactionResource) {
         MyTransactionResource myTransactionResource1 = myTransactionRepository.save(myTransactionResource);
-//        System.out.println(myTransactionResource1.toString());
         return true;
     }
 
