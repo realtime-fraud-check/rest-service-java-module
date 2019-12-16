@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.sturdy</groupId>
 	<artifactId>sturdymem</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0-SNAPSHOT</version>
 	<name>sturdymem</name>
 	<description>A Description</description>
 
